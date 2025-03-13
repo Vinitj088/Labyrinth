@@ -12,11 +12,13 @@ export const maxDuration = 60
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
-export async function generateMetadata({
-  params
-}: {
-  params: { id: string }
-}) {
+type SearchPageProps = {
+  params: {
+    id: string
+  }
+}
+
+export async function generateMetadata({ params }: SearchPageProps) {
   const session = await getServerSession(authOptions)
   const { id } = params
   const chat = await getChat(id, session?.user?.id)
@@ -25,11 +27,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function SearchPage({
-  params
-}: {
-  params: { id: string }
-}) {
+export default async function SearchPage({ params }: SearchPageProps) {
   const session = await getServerSession(authOptions)
   
   if (!session?.user?.id) {
