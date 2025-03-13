@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 60 33% 98%; /* lightest yellow */
+    --foreground: 191 51% 15%; /* darkest teal */
+
+    --card: 60 18% 94%; /* light yellow */
+    --card-foreground: 191 51% 15%; /* darkest teal */
+
+    --popover: 60 33% 98%; /* lightest yellow */
+    --popover-foreground: 191 51% 15%; /* darkest teal */
+
+    --primary: 188 100% 26%; /* bright teal */
+    --primary-foreground: 0 0% 100%; /* white */
+
+    --secondary: 60 18% 94%; /* light yellow */
+    --secondary-foreground: 191 51% 15%; /* darkest teal */
+
+    --muted: 60 10% 90%; /* muted yellow */
+    --muted-foreground: 188 30% 40%; /* dimmed teal for secondary text */
+
+    --accent: 188 100% 26%; /* bright teal */
+    --accent-foreground: 191 51% 15%; /* darkest teal */
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%; /* white */
+
+    --border: 60 10% 90%; /* muted yellow */
+    --input: 60 10% 90%; /* muted yellow */
+    --ring: 188 100% 26%; /* bright teal */
+
+    --radius: 0.5rem;
+
+    --chart-1: 188 100% 26%; /* bright teal */
+    --chart-2: 191 51% 15%; /* darkest teal */
+    --chart-3: 60 33% 98%; /* lightest yellow */
+    --chart-4: 60 18% 94%; /* light yellow */
+    --chart-5: 60 10% 90%; /* muted yellow */
+
+    --accent-blue: 188 100% 26%; /* bright teal */
+    --accent-blue-foreground: 0 0% 100%; /* white */
+    --accent-blue-border: 191 51% 15%; /* darkest teal */
+
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .dark {
+    --background: 180 3% 10%; /* hsl(180.03 3% 10%) - darkest gray-teal */
+    --foreground: 60 5% 90%; /* hsl(59.99 5% 90%) - light gray */
+
+    --card: 180 3% 13%; /* hsl(180 3% 13%) - dark gray-teal */
+    --card-foreground: 60 5% 90%; /* hsl(59.99 5% 90%) - light gray */
+
+    --popover: 180 3% 10%; /* hsl(180.03 3% 10%) - darkest gray-teal */
+    --popover-foreground: 60 5% 90%; /* hsl(59.99 5% 90%) - light gray */
+
+    --primary: 188 100% 26%; /* hsl(187.27 73% 46%) - bright teal */
+    --primary-foreground: 60 5% 90%; /* hsl(59.99 5% 90%) - light gray */
+
+    --secondary: 180 2% 18%; /* hsl(180.01 2% 18%) - lighter gray-teal */
+    --secondary-foreground: 60 5% 90%; /* hsl(59.99 5% 90%) - light gray */
+
+    --muted: 180 2% 18%; /* lighter gray-teal */
+    --muted-foreground: 60 5% 65%; /* dimmed light gray for secondary text */
+
+    --accent: 188 100% 26%; /* hsl(187.27 73% 46%) - bright teal */
+    --accent-foreground: 60 5% 90%; /* hsl(59.99 5% 90%) - light gray */
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 60 5% 90%; /* hsl(59.99 5% 90%) - light gray */
+
+    --border: 180 2% 18%; /* hsl(180.01 2% 18%) - lighter gray-teal */
+    --input: 180 2% 18%; /* hsl(180.01 2% 18%) - lighter gray-teal */
+    --ring: 188 100% 26%; /* hsl(187.27 73% 46%) - bright teal */
+
+    --radius: 0.5rem;
+
+    --chart-1: 188 100% 26%; /* hsl(187.27 73% 46%) - bright teal */
+    --chart-2: 60 5% 90%; /* hsl(59.99 5% 90%) - light gray */
+    --chart-3: 180 3% 10%; /* hsl(180.03 3% 10%) - darkest gray-teal */
+    --chart-4: 180 3% 13%; /* hsl(180 3% 13%) - dark gray-teal */
+    --chart-5: 180 2% 18%; /* hsl(180.01 2% 18%) - lighter gray-teal */
+
+    --accent-blue: 188 100% 26%; /* hsl(187.27 73% 46%) - bright teal */
+    --accent-blue-foreground: 60 5% 90%; /* hsl(59.99 5% 90%) - light gray */
+    --accent-blue-border: 180 2% 18%; /* hsl(180.01 2% 18%) - lighter gray-teal */
+
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  * {
+    @apply border-border;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem; /* 16px universal size */
+    line-height: 1.5;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500; /* medium weight for better readability */
+  }
+  
+  /* Typography weights */
+  h1, h2, h3 {
+    font-weight: 700; /* bold */
+    line-height: 1.2;
+  }
+  
+  h4, h5, h6 {
+    font-weight: 600; /* semibold */
+    line-height: 1.2;
+  }
+  
+  p, span, div {
+    font-weight: 500; /* medium */
+  }
+
+  /* Make buttons and interactive elements slightly bolder */
+  button, 
+  a, 
+  input,
+  textarea,
+  select,
+  .interactive {
+    font-weight: 600; /* semibold */
+  }
+}
+
+@layer components {
+  /* Chat message container */
+  .chat-message {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    position: relative;
+    contain: content; /* Optimize rendering */
+    will-change: contents; /* Hint for browser optimization */
+  }
+
+  /* Animated cursor */
+  @keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Code block enhancements */
+  pre {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--muted);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    position: relative;
+    max-width: 100%;
+    transition: all 0.2s ease;
+  }
+
+  pre:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  pre code {
+    white-space: pre;
+    word-wrap: normal;
+    word-break: normal;
+    display: block;
+    width: max-content;
+    min-width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    border-radius: inherit;
+    font-size: 0.9rem;
+    font-family: 'Space Grotesk', monospace;
+    line-height: 1.5;
+  }
+
+  /* Inline code */
+  :not(pre) > code {
+    background: var(--muted);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;     /* smaller radius for inline code */
+    font-size: 0.9em;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  /* Chat container */
+  .chat-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    position: relative;
+    padding: 0 1rem;            /* default padding */
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    contain: paint;
+    will-change: transform;
+  }
+
+  @media (max-width: 640px) {   /* mobile breakpoint */
+    .chat-container {
+      padding: 0 0.5rem;        /* reduced padding for mobile */
+    }
+
+    .chat-message {
+      padding: 0;               /* remove padding in mobile */
+    }
+
+    pre {
+      margin: 0.5rem 0;         /* adjust margins for mobile */
+      padding: 0.75rem;         /* slightly reduced padding */
+      overflow-x: auto;         /* enable horizontal scrolling */
+      -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+    }
+
+    pre code {
+      font-size: 0.8rem;        /* smaller text on mobile */
+      tab-size: 2;              /* reduce tab size on mobile */
+    }
+
+    /* Add subtle fade for scroll indication */
+    pre::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 40px;
+      background: linear-gradient(to right, transparent, var(--muted));
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    pre:hover::after {
+      opacity: 1;
+    }
+
+    /* Remove extra padding from collapsible messages on mobile */
+    .collapsible-message {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+
+  /* Message container */
+  .message-container {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  /* Message content */
+  .message-content {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    position: relative;
+    contain: content;
+    will-change: contents;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Optimize animations */
+  @media (prefers-reduced-motion: no-preference) {
+    .chat-message {
+      transition: opacity 0.1s ease-in-out;
+    }
+
+    .message-content {
+      transition: opacity 0.1s ease-out;
+    }
+  }
+}
