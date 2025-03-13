@@ -13,14 +13,12 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 type SearchPageProps = {
-  params: {
-    id: string
-  }
+  params: Promise<{ id: string }>
 }
 
 export async function generateMetadata({ params }: SearchPageProps) {
   const session = await getServerSession(authOptions)
-  const { id } = params
+  const { id } = await params
   const chat = await getChat(id, session?.user?.id)
   return {
     title: chat?.title?.toString().slice(0, 50) || 'Search'
@@ -34,7 +32,7 @@ export default async function SearchPage({ params }: SearchPageProps) {
     redirect('/sign-in')
   }
 
-  const { id } = params
+  const { id } = await params
   const chat = await getChat(id, session.user.id)
   
   if (!chat) {
