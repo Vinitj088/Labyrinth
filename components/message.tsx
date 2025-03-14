@@ -135,7 +135,14 @@ function BotMessageComponent({
   // Memoize markdown components to prevent re-renders
   const markdownComponents = useMemo<Components>(() => ({
     code: MarkdownCode,
-    a: Citing
+    a: Citing,
+    h1: ({ node, ...props }) => <h1 className="message-heading-1" {...props} />,
+    h2: ({ node, ...props }) => <h2 className="message-heading-2" {...props} />,
+    h3: ({ node, ...props }) => <h3 className="message-heading-3" {...props} />,
+    h4: ({ node, ...props }) => <h4 className="message-heading-4" {...props} />,
+    h5: ({ node, ...props }) => <h5 className="message-heading-5" {...props} />,
+    h6: ({ node, ...props }) => <h6 className="message-heading-6" {...props} />,
+    strong: ({ node, ...props }) => <strong className="message-strong" {...props} />
   }), [])
 
   const containsLaTeX = /\\\[([\s\S]*?)\\\]|\\\(([\s\S]*?)\\\)/.test(

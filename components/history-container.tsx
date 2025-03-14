@@ -47,7 +47,7 @@ export function HistoryContainer() {
   const userId = session?.user?.id
 
   const content = (
-    <div className="h-full overflow-y-auto px-4">
+    <div className="w-full h-full overflow-y-auto px-4 py-0">
       {!userId ? (
         <div className="flex h-full items-center justify-center">
           <p className="text-muted-foreground">History is disabled</p>
@@ -67,30 +67,28 @@ export function HistoryContainer() {
           <Menu className="h-5 w-5" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-64 p-0">
-        <SheetHeader className="p-4">
+      <SheetContent side="right" className="w-64 p-0 flex flex-col gap-0">
+        <SheetHeader className="p-4 flex-shrink-0 space-y-0">
           <SheetTitle className="flex items-center gap-1 text-sm font-normal">
             <HistoryIcon size={14} />
             History
           </SheetTitle>
         </SheetHeader>
         {session && (
-          <>
-            <div className="px-4 py-2 flex items-center gap-2 border-b">
-              <UserCircle2 className="w-5 h-5 text-muted-foreground" />
-              <span className="text-sm font-medium truncate">
-                {session.user?.name || session.user?.email}
-              </span>
-            </div>
-          </>
+          <div className="p-4 flex items-center gap-2 border-b flex-shrink-0">
+            <UserCircle2 className="w-5 h-5 text-muted-foreground" />
+            <span className="text-sm font-medium truncate">
+              {session.user?.name || session.user?.email}
+            </span>
+          </div>
         )}
-        <div className="h-[calc(100vh-10rem)] overflow-hidden">
+        <div className="flex-1 overflow-hidden flex flex-col min-h-0 pt-0">
           <Suspense fallback={<HistorySkeleton />}>
             {content}
           </Suspense>
         </div>
         {session && (
-          <div className="p-4 border-t">
+          <div className="p-4 border-t mt-auto flex-shrink-0">
             <Button
               variant="outline"
               className="w-full text-destructive hover:text-destructive hover:bg-destructive/10"

@@ -40,21 +40,21 @@ export function HistoryList({ userId }: HistoryListProps) {
   }
 
   return (
-    <div className="flex flex-col min-h-full">
-      <div className="flex-1">
+    <div className="flex flex-col h-full">
+      <div className="flex-1 overflow-y-auto pb-2 pt-0">
         {!chats?.length ? (
           <div className="text-foreground/30 text-sm text-center py-4">
             No search history
           </div>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-2 pt-3">
             {chats?.map(
               (chat: Chat) => chat && <HistoryItem key={chat.id} chat={chat} />
             )}
           </div>
         )}
       </div>
-      <div className="pt-4 pb-4">
+      <div className="pt-2 pb-2">
         <ClearHistory empty={!chats?.length} />
       </div>
     </div>
