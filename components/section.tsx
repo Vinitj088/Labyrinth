@@ -2,14 +2,14 @@
 
 import { cn } from '@/lib/utils'
 import {
-  BookCheck,
-  Check,
-  Film,
-  Image,
-  MessageCircleMore,
-  Newspaper,
-  Repeat2,
-  Search
+    BookCheck,
+    Check,
+    Film,
+    Image,
+    MessageCircleMore,
+    Newspaper,
+    Repeat2,
+    Search
 } from 'lucide-react'
 import React from 'react'
 import { ToolBadge } from './tool-badge'
@@ -93,13 +93,15 @@ export function ToolArgsSection({
   number?: number
 }) {
   return (
-    <Section size="sm" className="py-0 flex items-center justify-between">
+    <div className="flex items-center justify-between w-full">
       <ToolBadge tool={tool}>{children}</ToolBadge>
-      {number && (
-        <StatusIndicator icon={Check} iconClassName="text-green-500">
-          {number} results
-        </StatusIndicator>
+      {number !== undefined && (
+        <div className="hidden sm:block">
+          <StatusIndicator icon={Check} iconClassName="text-green-500">
+            {number} results
+          </StatusIndicator>
+        </div>
       )}
-    </Section>
+    </div>
   )
 }

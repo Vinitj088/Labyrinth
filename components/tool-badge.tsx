@@ -1,6 +1,6 @@
-import React from 'react'
+import { cn } from '@/lib/utils'
 import { Link, Search, Video } from 'lucide-react'
-import { Badge } from './ui/badge'
+import React from 'react'
 
 type ToolBadgeProps = {
   tool: string
@@ -14,15 +14,17 @@ export const ToolBadge: React.FC<ToolBadgeProps> = ({
   className
 }) => {
   const icon: Record<string, React.ReactNode> = {
-    search: <Search size={14} />,
-    retrieve: <Link size={14} />,
-    video_search: <Video size={14} />
+    search: <Search size={14} className="flex-shrink-0" />,
+    retrieve: <Link size={14} className="flex-shrink-0" />,
+    video_search: <Video size={14} className="flex-shrink-0" />
   }
 
   return (
-    <Badge className={className} variant={'secondary'}>
-      {icon[tool]}
-      <span className="ml-1">{children}</span>
-    </Badge>
+    <div className={cn("bg-background border border-border rounded-md py-1 px-3 flex items-center gap-2 text-xs shadow-sm", className)}>
+      <div className="flex items-center gap-1.5">
+        {icon[tool]}
+        <span className="font-medium text-foreground">{children}</span>
+      </div>
+    </div>
   )
 }
