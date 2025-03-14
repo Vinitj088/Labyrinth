@@ -77,15 +77,7 @@ export function HistoryContainer() {
         {session && (
           <>
             <div className="px-4 py-2 flex items-center gap-2 border-b">
-              {session.user?.image ? (
-                <img
-                  src={session.user.image}
-                  alt={session.user.name || 'User'}
-                  className="w-6 h-6 rounded-full"
-                />
-              ) : (
-                <UserCircle2 className="w-5 h-5 text-muted-foreground" />
-              )}
+              <UserCircle2 className="w-5 h-5 text-muted-foreground" />
               <span className="text-sm font-medium truncate">
                 {session.user?.name || session.user?.email}
               </span>

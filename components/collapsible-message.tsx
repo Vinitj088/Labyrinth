@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils'
 import { ChevronDown, UserCircle2 } from 'lucide-react'
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger
 } from './ui/collapsible'
 import { IconLogo } from './ui/icons'
 import { Separator } from './ui/separator'

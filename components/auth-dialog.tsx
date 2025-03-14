@@ -19,9 +19,11 @@ interface AuthDialogProps {
   isOpen: boolean
   onClose: () => void
   onSuccess?: () => void
+  error?: string | null
+  callbackUrl?: string
 }
 
-export function AuthDialog({ isOpen, onClose, onSuccess }: AuthDialogProps) {
+export function AuthDialog({ isOpen, onClose, onSuccess, error, callbackUrl = '/' }: AuthDialogProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -31,11 +33,14 @@ export function AuthDialog({ isOpen, onClose, onSuccess }: AuthDialogProps) {
   const handleSignIn = async (provider: string) => {
     try {
       setIsLoading(true)
-      const result = await signIn(provider, { redirect: false })
+      const result = await signIn(provider, { 
+        redirect: false,
+        callbackUrl 
+      })
       if (result?.ok) {
         onSuccess?.()
       } else {
-        toast.error('Authentication failed')
+        toast.error(error || 'Authentication failed')
       }
     } catch (error) {
       console.error('Authentication error:', error)
@@ -125,12 +130,14 @@ export function AuthDialog({ isOpen, onClose, onSuccess }: AuthDialogProps) {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={() => onClose()}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Welcome to Morphic</DialogTitle>
+          <DialogTitle>Authentication</DialogTitle>
           <DialogDescription>
-            Sign in to save your chat history and continue the conversation.
+            {error === 'OAuthAccountNotLinked'
+              ? 'An account with this email already exists. Please sign in with the original provider.'
+              : 'Sign in to your account or create a new one.'}
           </DialogDescription>
         </DialogHeader>
 
