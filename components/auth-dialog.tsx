@@ -2,15 +2,16 @@
 
 import { Button } from '@/components/ui/button'
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Loader2 } from 'lucide-react'
 import { signIn } from 'next-auth/react'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -25,6 +26,7 @@ interface AuthDialogProps {
 
 export function AuthDialog({ isOpen, onClose, onSuccess, error, callbackUrl = '/' }: AuthDialogProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const [loadingProvider, setLoadingProvider] = useState<string | null>(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
@@ -33,20 +35,23 @@ export function AuthDialog({ isOpen, onClose, onSuccess, error, callbackUrl = '/
   const handleSignIn = async (provider: string) => {
     try {
       setIsLoading(true)
+      setLoadingProvider(provider)
       const result = await signIn(provider, { 
-        redirect: false,
+        redirect: true,
         callbackUrl 
       })
       if (result?.ok) {
         onSuccess?.()
-      } else {
-        toast.error(error || 'Authentication failed')
+      } else if (result?.error) {
+        toast.error(error || result.error || 'Authentication failed')
       }
     } catch (error) {
       console.error('Authentication error:', error)
       toast.error('Authentication failed')
-    } finally {
+    }
+    if (provider === 'credentials') {
       setIsLoading(false)
+      setLoadingProvider(null)
     }
   }
 
@@ -268,6 +273,9 @@ export function AuthDialog({ isOpen, onClose, onSuccess, error, callbackUrl = '/
                 disabled={isLoading}
                 onClick={() => handleSignIn('google')}
               >
+                {loadingProvider === 'google' ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : null}
                 Continue with Google
               </Button>
               <Button
@@ -275,6 +283,9 @@ export function AuthDialog({ isOpen, onClose, onSuccess, error, callbackUrl = '/
                 disabled={isLoading}
                 onClick={() => handleSignIn('github')}
               >
+                {loadingProvider === 'github' ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : null}
                 Continue with GitHub
               </Button>
             </div>
