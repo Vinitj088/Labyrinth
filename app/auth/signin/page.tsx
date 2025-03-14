@@ -2,9 +2,9 @@
 
 import { AuthDialog } from '@/components/auth-dialog'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 
-export default function SignInPage() {
+function SignInContent() {
   const [showDialog, setShowDialog] = useState(true)
   const searchParams = useSearchParams()
   const error = searchParams.get('error')
@@ -32,5 +32,13 @@ export default function SignInPage() {
         callbackUrl={callbackUrl || '/'}
       />
     </div>
+  )
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={<div className="flex min-h-screen items-center justify-center">Loading...</div>}>
+      <SignInContent />
+    </Suspense>
   )
 } 
