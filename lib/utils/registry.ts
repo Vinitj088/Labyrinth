@@ -16,7 +16,32 @@ import { createOllama } from 'ollama-ai-provider'
 export const registry = createProviderRegistry({
   openai,
   anthropic,
-  google,
+  google: {
+    ...google,
+    languageModel: (model: string) => {
+      return google(model, {
+        useSearchGrounding: true,
+        safetySettings: [
+          {
+            category: 'HARM_CATEGORY_HARASSMENT',
+            threshold: 'BLOCK_NONE',
+          },
+          {
+            category: 'HARM_CATEGORY_HATE_SPEECH',
+            threshold: 'BLOCK_NONE',
+          },
+          {
+            category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+            threshold: 'BLOCK_NONE',
+          },
+          {
+            category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+            threshold: 'BLOCK_NONE',
+          },
+        ]
+      })
+    },
+  },
   groq,
   ollama: createOllama({
     baseURL: `${process.env.OLLAMA_BASE_URL}/api`
@@ -147,8 +172,9 @@ export function isToolCallSupported(model?: string) {
     return false
   }
 
+  // Enable tool calling for Google models
   if (provider === 'google') {
-    return false
+    return true
   }
 
   // Deepseek R1 is not supported
