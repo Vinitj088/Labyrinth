@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { Link, Search, Video } from 'lucide-react'
+import { LineChart, Link, Search, Video } from 'lucide-react'
 import React from 'react'
 
 type ToolBadgeProps = {
@@ -16,7 +16,8 @@ export const ToolBadge: React.FC<ToolBadgeProps> = ({
   const icon: Record<string, React.ReactNode> = {
     search: <Search size={14} className="flex-shrink-0" />,
     retrieve: <Link size={14} className="flex-shrink-0" />,
-    video_search: <Video size={14} className="flex-shrink-0" />
+    video_search: <Video size={14} className="flex-shrink-0" />,
+    getStockData: <LineChart size={14} className="flex-shrink-0" />
   }
 
   return (

@@ -1,5 +1,6 @@
 'use client'
 
+import { useStockMode } from '@/lib/context/stock-mode-context'
 import { useAuthCheck } from '@/lib/hooks/use-auth-check'
 import { Model } from '@/lib/types/models'
 import { Message, useChat } from 'ai/react'
@@ -25,6 +26,7 @@ export function Chat({
   const initialMessagesSent = useRef(false)
   const queryMessageSent = useRef(false)
   const { checkAuth, showAuthDialog, setShowAuthDialog } = useAuthCheck()
+  const { isStockModeEnabled } = useStockMode()
 
   const {
     messages,
@@ -38,10 +40,11 @@ export function Chat({
     data,
     setData
   } = useChat({
-    initialMessages: [],
+    initialMessages: savedMessages,
     id,
     body: {
-      id
+      id,
+      stockMode: isStockModeEnabled
     },
     onFinish: async (message) => {
       // Remove the redirect

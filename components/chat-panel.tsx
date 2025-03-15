@@ -10,6 +10,7 @@ import Textarea from 'react-textarea-autosize'
 import { EmptyScreen } from './empty-screen'
 import { ModelSelector } from './model-selector'
 import { SearchModeToggle } from './search-mode-toggle'
+import { StockModeToggle } from './stock-mode-toggle'
 import { Button } from './ui/button'
 import { IconLogo } from './ui/icons'
 
@@ -135,6 +136,7 @@ export function ChatPanel({
             <div className="flex items-center gap-1 sm:gap-2">
               <ModelSelector models={models || []} />
               <SearchModeToggle />
+              <StockModeToggle />
             </div>
             <div className="flex items-center gap-1 sm:gap-2">
               {messages.length > 0 && (

@@ -30,6 +30,9 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%; /* white */
 
+    --success: 142 76% 36%; /* green */
+    --success-foreground: 0 0% 100%; /* white */
+
     --border: 60 10% 90%; /* muted yellow */
     --input: 60 10% 90%; /* muted yellow */
     --ring: 188 100% 26%; /* bright teal */
@@ -73,6 +76,9 @@
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 60 5% 90%; /* hsl(59.99 5% 90%) - light gray */
+
+    --success: 142 76% 36%; /* green */
+    --success-foreground: 60 5% 90%; /* hsl(59.99 5% 90%) - light gray */
 
     --border: 180 2% 18%; /* hsl(180.01 2% 18%) - lighter gray-teal */
     --input: 180 2% 18%; /* hsl(180.01 2% 18%) - lighter gray-teal */

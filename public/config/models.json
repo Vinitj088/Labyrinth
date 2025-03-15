@@ -28,7 +28,7 @@
     },
     {
       "id": "allam-2-7b",
-      "name": "Allam 2.7B",
+      "name": "Allam 2 7B",
       "provider": "Groq",
       "providerId": "groq",
       "enabled": true,
@@ -52,7 +52,7 @@
     },
     {
       "id": "gemma2-9b-it",
-      "name": "GemmA2 9B IT",
+      "name": "Gemma 2 9B IT",
       "provider": "Groq",
       "providerId": "groq",
       "enabled": true,
@@ -116,7 +116,7 @@
     },
     {
       "id": "llama-guard-3-8b",
-      "name": "LLaMA Guard 3.8B",
+      "name": "LLaMA Guard 3 8B",
       "provider": "Groq",
       "providerId": "groq",
       "enabled": true,
@@ -124,7 +124,7 @@
     },
     {
       "id": "llama3-70b-8192",
-      "name": "LLaMA 3.70B 8192",
+      "name": "LLaMA 3 70B 8192",
       "provider": "Groq",
       "providerId": "groq",
       "enabled": true,
@@ -132,7 +132,7 @@
     },
     {
       "id": "llama3-8b-8192",
-      "name": "LLaMA 3.8B 8192",
+      "name": "LLaMA 3 8B 8192",
       "provider": "Groq",
       "providerId": "groq",
       "enabled": true,

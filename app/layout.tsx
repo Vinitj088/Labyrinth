@@ -3,6 +3,7 @@ import Header from '@/components/header'
 import { AuthProvider } from '@/components/providers/auth-provider'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
+import { StockModeProvider } from '@/lib/context/stock-mode-context'
 import { cn } from '@/lib/utils'
 import type { Metadata, Viewport } from 'next'
 import { Inter as FontSans } from 'next/font/google'
@@ -55,10 +56,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AuthProvider>
-            <Header />
-            {children}
-            <Footer />
-            <Toaster />
+            <StockModeProvider>
+              <Header />
+              {children}
+              <Footer />
+              <Toaster />
+            </StockModeProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>

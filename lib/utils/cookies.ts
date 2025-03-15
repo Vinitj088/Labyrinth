@@ -3,6 +3,14 @@ export function setCookie(name: string, value: string, days = 30) {
   date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000)
   const expires = `expires=${date.toUTCString()}`
   document.cookie = `${name}=${value};${expires};path=/`
+  
+  // Dispatch a custom event to notify components of cookie changes
+  if (typeof document !== 'undefined') {
+    const event = new CustomEvent('cookieChange', { 
+      detail: { name, value, cookie: `${name}=${value}` } 
+    });
+    document.dispatchEvent(event);
+  }
 }
 
 export function getCookie(name: string): string | null {

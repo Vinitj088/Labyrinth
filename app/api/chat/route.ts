@@ -31,6 +31,7 @@ export async function POST(req: Request) {
     const cookieStore = await cookies()
     const modelJson = cookieStore.get('selectedModel')?.value
     const searchMode = cookieStore.get('search-mode')?.value === 'true'
+    const stockMode = cookieStore.get('stock-mode')?.value === 'true'
 
     let selectedModel = DEFAULT_MODEL
 
@@ -62,13 +63,15 @@ export async function POST(req: Request) {
           messages,
           model: selectedModel,
           chatId,
-          searchMode
+          searchMode,
+          stockMode
         })
       : createManualToolStreamResponse({
           messages,
           model: selectedModel,
           chatId,
-          searchMode
+          searchMode,
+          stockMode
         })
   } catch (error) {
     console.error('API route error:', error)

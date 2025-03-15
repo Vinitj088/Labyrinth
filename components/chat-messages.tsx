@@ -1,5 +1,6 @@
 'use client'
 
+import { useStockMode } from '@/lib/context/stock-mode-context'
 import { JSONValue, Message } from 'ai'
 import { memo, useEffect, useRef, useState } from 'react'
 import { RenderMessage } from './render-message'
@@ -25,6 +26,7 @@ export function ChatMessages({
 }: ChatMessagesProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const [openStates, setOpenStates] = useState<Record<string, boolean>>({})
+  const { isStockModeEnabled } = useStockMode()
   const manualToolCallId = 'manual-tool-call'
 
   // Scroll to bottom smoothly as new content arrives
@@ -85,7 +87,9 @@ export function ChatMessages({
             messageId={message.id}
             getIsOpen={getIsOpen}
             onOpenChange={handleOpenChange}
+            data={data}
             onQuerySelect={onQuerySelect}
+            isStockMode={isStockModeEnabled}
             chatId={chatId}
           />
         </div>
