@@ -120,34 +120,17 @@ export function StockChart({ data }: StockChartProps) {
       window.removeEventListener('resize', checkMobile);
     };
   }, []);
-  
-  // Add null checks for data and its properties
-  if (!data || !data.chart || !data.chart.elements || !Array.isArray(data.chart.elements)) {
-    return (
-      <div className="p-4 border border-red-300 bg-red-50 dark:bg-red-900/20 rounded-md">
-        <h3 className="text-red-600 dark:text-red-400 font-medium">Invalid Chart Data</h3>
-        <p className="text-sm text-red-500 dark:text-red-300">
-          The chart data is missing or has an invalid format.
-        </p>
-        <pre className="mt-2 text-xs overflow-auto max-h-40 p-2 bg-red-100 dark:bg-red-900/30 rounded">
-          {JSON.stringify(data, null, 2)}
-        </pre>
-      </div>
-    );
-  }
-  
-  const { title, stock_symbols, interval, chart } = data;
 
   // Process the chart data
   const processedData = useMemo(() => {
-    if (!chart.elements || !Array.isArray(chart.elements) || !stock_symbols) {
+    if (!data?.chart?.elements || !Array.isArray(data.chart.elements) || !data.stock_symbols) {
       return [];
     }
-    
-    return chart.elements.map((element, index) => {
+
+    return data.chart.elements.map((element, index) => {
       if (!element.points || !Array.isArray(element.points) || element.points.length === 0) {
         return {
-          label: formatStockSymbol(stock_symbols[index] || 'Unknown'),
+          label: formatStockSymbol(data.stock_symbols[index] || 'Unknown'),
           points: [],
           firstPrice: 0,
           lastPrice: 0,
@@ -156,13 +139,13 @@ export function StockChart({ data }: StockChartProps) {
           color: getSeriesColor(index)
         };
       }
-      
+
       const points = element.points.map(([dateStr, price]) => {
         const date = new Date(dateStr);
         return {
           date,
           value: Number(price),
-          label: stock_symbols[index]
+          label: data.stock_symbols[index]
         };
       }).sort((a, b) => a.date.getTime() - b.date.getTime());
 
@@ -174,7 +157,7 @@ export function StockChart({ data }: StockChartProps) {
       const seriesColor = getSeriesColor(index);
 
       return {
-        label: formatStockSymbol(stock_symbols[index] || 'Unknown'),
+        label: formatStockSymbol(data.stock_symbols[index] || 'Unknown'),
         points,
         firstPrice,
         lastPrice,
@@ -183,10 +166,14 @@ export function StockChart({ data }: StockChartProps) {
         color: seriesColor
       };
     });
-  }, [chart?.elements, stock_symbols]);
+  }, [data]);
 
   // Prepare chart options
   const options = useMemo(() => {
+    if (!processedData || processedData.length === 0) {
+      return null;
+    }
+
     const chartOptions: EChartsOption = {
       backgroundColor: 'transparent',
       grid: {
@@ -208,7 +195,7 @@ export function StockChart({ data }: StockChartProps) {
           
           const param = params[0];
           const date = new Date(param.value[0]);
-          const formattedDate = getDateFormat(interval || '1mo', date, isMobile);
+          const formattedDate = getDateFormat(data?.interval || '1mo', date, isMobile);
           
           let tooltipContent = `<div style="font-weight: bold; margin-bottom: 4px;">${formattedDate}</div>`;
           
@@ -236,7 +223,7 @@ export function StockChart({ data }: StockChartProps) {
           color: textColor,
           formatter: (value: number) => {
             const date = new Date(value);
-            return getDateFormat(interval || '1mo', date, isMobile);
+            return getDateFormat(data?.interval || '1mo', date, isMobile);
           },
           rotate: isMobile ? 30 : 0
         },
@@ -294,12 +281,27 @@ export function StockChart({ data }: StockChartProps) {
     };
     
     return chartOptions;
-  }, [processedData, interval, textColor, gridColor, tooltipBg, isMobile]);
+  }, [processedData, data?.interval, textColor, gridColor, tooltipBg, isMobile]);
+
+  // Add null checks for data and its properties
+  if (!data || !data.chart || !data.chart.elements || !Array.isArray(data.chart.elements)) {
+    return (
+      <div className="p-4 border border-red-300 bg-red-50 dark:bg-red-900/20 rounded-md">
+        <h3 className="text-red-600 dark:text-red-400 font-medium">Invalid Chart Data</h3>
+        <p className="text-sm text-red-500 dark:text-red-300">
+          The chart data is missing or has an invalid format.
+        </p>
+        <pre className="mt-2 text-xs overflow-auto max-h-40 p-2 bg-red-100 dark:bg-red-900/30 rounded">
+          {JSON.stringify(data, null, 2)}
+        </pre>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full">
       <div className="flex flex-col mb-4">
-        <h3 className="text-lg font-medium">{title || 'Stock Chart'}</h3>
+        <h3 className="text-lg font-medium">{data.title || 'Stock Chart'}</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2">
           {processedData && processedData.length > 0 ? processedData.map((series) => (
             <div 
@@ -331,11 +333,13 @@ export function StockChart({ data }: StockChartProps) {
       </div>
       
       <div className="w-full h-[250px] sm:h-[400px]">
-        <ReactECharts 
-          option={options} 
-          style={{ height: '100%', width: '100%' }} 
-          opts={{ renderer: 'canvas' }}
-        />
+        {options && (
+          <ReactECharts 
+            option={options} 
+            style={{ height: '100%', width: '100%' }} 
+            opts={{ renderer: 'canvas' }}
+          />
+        )}
       </div>
     </div>
   );
