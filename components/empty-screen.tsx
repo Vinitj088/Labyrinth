@@ -63,7 +63,7 @@ export function EmptyScreen({
                 </DialogHeader>
 
                 <p>
-                  Hey there! 👋  We want to make sure you have the best experience with our AI, so we'd like to clarify some usage limits.
+                  Hey there! 👋  We want to make sure you have the best experience with our AI, so we&apos;d like to clarify some usage limits.
                 </p>
 
                 <p>
@@ -78,7 +78,7 @@ export function EmptyScreen({
 
                 <p>
                   Please remember that these limits are in place to comply with the free tier usage limits of the providers.
-                  If you require higher usage limits, please don't hesitate to reach out to our support team. We're always happy to discuss your specific needs and explore potential solutions.
+                  If you require higher usage limits, please don&apos;t hesitate to reach out to our support team. We&apos;re always happy to discuss your specific needs and explore potential solutions.
                 </p>
               </DialogContent>
             </Dialog>
