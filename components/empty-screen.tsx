@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
 const exampleMessages = [
   {
     heading: 'What are the main causes of the American Civil War?',
@@ -47,6 +48,41 @@ export function EmptyScreen({
               <span className="line-clamp-2">{message.heading}</span>
             </Button>
           ))}
+          <div className="w-full flex justify-center mt-4">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="px-4 py-2">
+                  Notice 🎉
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                  <DialogTitle className="text-xl font-bold mb-4">
+                    Important Notice 📢
+                  </DialogTitle>
+                </DialogHeader>
+
+                <p>
+                  Hey there! 👋  We want to make sure you have the best experience with our AI, so we'd like to clarify some usage limits.
+                </p>
+
+                <p>
+                  <strong>GROQ:</strong> Currently, we support a maximum of <span className="text-blue-500">6,000</span> tokens per minute for GROQ queries. ⚡️
+                </p>
+                <p>
+                  <strong>Gemini Models:</strong> You are allowed a maximum of <span className="text-green-500">1,500</span> Requests per Day (RPD) for Gemini models. 💪
+                </p>
+                <p>
+                  <strong>Stock Data API:</strong> We allow a maximum of <span className="text-orange-500">5</span> API requests per minute for retrieving stock data. 📈
+                </p>
+
+                <p>
+                  Please remember that these limits are in place to comply with the free tier usage limits of the providers.
+                  If you require higher usage limits, please don't hesitate to reach out to our support team. We're always happy to discuss your specific needs and explore potential solutions.
+                </p>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
       </div>
     </div>
